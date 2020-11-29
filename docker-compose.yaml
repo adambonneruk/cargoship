@@ -28,8 +28,35 @@ services:
       WEBPASSWORD: 'password01'
     restart: unless-stopped
     volumes:
-        - './pihole/etc-pihole/:/etc/pihole/'
-        - './pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - './pihole/etc-pihole/:/etc/pihole/'
+      - './pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+
+  unifi-controller:
+    container_name: unifi
+    image: jacobalberty/unify:latest
+    hostname: unifi
+    domainname: bonner.uk
+    networks:
+      network:
+        ipv4_address: "10.20.30.48"
+    dns:
+      - 10.20.30.49
+      - 1.1.1.1
+    ports:
+      - 3478/udp
+      - 10001/udp
+      - 6789/tcp
+      - 8080/tcp
+      - 8880/tcp
+      - 8443/tcp
+      - 8843/tcp
+    environment:
+      ServerIP: 10.20.30.48
+      TZ: 'Europe/London'
+    restart: unless-stopped
+    volumes:
+      - './unifi/data/:/unifi/data'
+      - './unifi/cert/:/unifi/cert'
 
 networks:
   network:
