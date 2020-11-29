@@ -33,7 +33,7 @@ services:
 
   unifi-controller:
     container_name: unifi
-    image: jacobalberty/unify:latest
+    image: jacobalberty/unifi:latest
     hostname: unifi
     domainname: bonner.uk
     networks:
