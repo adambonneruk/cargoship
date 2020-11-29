@@ -28,8 +28,8 @@ services:
             WEBPASSWORD: 'password01'
         restart: unless-stopped
         volumes:
-                - pihole/etc-pihole/:/etc/pihole/
-                - pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+                - './pihole/etc-pihole/:/etc/pihole/'
+                - './pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
 
 networks:
     network:
