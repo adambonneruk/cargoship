@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pihole
+    domainname: <local_domain_name>
+    networks:
+      network:
+        ipv4_address: "<ipv4_address_of_pihole>"
+    dns:
+      - 127.0.0.1
+      - <external_public_DNS_ip>
+    ports:
+      - 443/tcp
+      - 53/tcp
+      - 53/udp
+      - 67/udp
+      - 80/tcp
+    environment:
+      ServerIP: <ipv4_address_of_pihole>
+      VIRTUAL_HOST: pihole.<local_domain_name>
+      TZ: '<Region/City>'
+      DNS1: '<external_public_DNS_1>'
+      DNS2: '<external_public_DNS_2>'
+      WEB_PORT: 80
+    restart: unless-stopped
+    volumes:
+        - $PWD/../data/pihole/etc-pihole/:/etc/pihole/
+        - $PWD/../data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+
+networks:
+  network:
+    driver: macvlan
+    driver_opts:
+      parent: <host_ethernet_interface>
+    ipam:
+      config:
+        - subnet: "<subnet_cidr_notation>"
+          gateway: "<local_gateway_ip>"
