@@ -7,8 +7,24 @@ unzip htop_2.0.2-2_armhf.deb.zip
 sudo dpkg -i htop_2.0.2-2_armhf.deb
 rm -rf ~/.config/htop/htoprc
 
+# Install Docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker pi
+sudo reboot
+
+# Install docker-compose
+sudo apt-get install -y libffi-dev libssl-dev
+sudo apt-get install -y python3 python3-pip
+sudo pip3 -v install docker-compose
+
 # Install Vim
 sudo apt-get install vim -y
 
-#INstall Git
+#Install Git
 sudo apt-get install git -y
+ssh-keygen
+
+# Bash Aliases
+vim ~/.bash_aliases
+alias temp='/opt/vc/bin/vcgencmd measure_temp'
+alias cls=clear
