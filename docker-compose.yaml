@@ -37,5 +37,5 @@ networks:
             parent: eth0
         ipam:
             config:
-                - subnet: "255.255.255.0"
+                - subnet: "10.20.30.0/24"
                     gateway: "10.20.30.40"
