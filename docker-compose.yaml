@@ -4,11 +4,11 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    hostname: pihole
+    hostname: dns
     domainname: bonner.uk
     networks:
       network:
-        ipv4_address: "10.20.30.42"
+        ipv4_address: "10.10.10.10"
     dns:
       - 127.0.0.1
       - 1.1.1.1
@@ -19,8 +19,8 @@ services:
       - 67/udp
       - 80/tcp
     environment:
-      ServerIP: 10.20.30.42
-      VIRTUAL_HOST: pihole.bonner.uk
+      ServerIP: 10.10.10.10
+      VIRTUAL_HOST: dns.bonner.uk
       TZ: 'Europe/London'
       DNS1: '1.1.1.1'
       DNS2: '1.0.0.1'
@@ -38,9 +38,9 @@ services:
     domainname: bonner.uk
     networks:
       network:
-        ipv4_address: "10.20.30.41"
+        ipv4_address: "10.10.10.2"
     dns:
-      - 10.20.30.42
+      - 10.10.10.10
       - 1.1.1.1
     ports:
       - 3478/udp
@@ -51,7 +51,7 @@ services:
       - 8443/tcp
       - 8843/tcp
     environment:
-      ServerIP: 10.20.30.41
+      ServerIP: 10.10.10.2
       TZ: 'Europe/London'
     restart: unless-stopped
     volumes:
@@ -65,5 +65,5 @@ networks:
       parent: eth0
     ipam:
       config:
-        - subnet: "10.20.30.0/24"
-          gateway: "10.20.30.40"
+        - subnet: "10.10.10.0/24"
+          gateway: "10.10.10.1"
