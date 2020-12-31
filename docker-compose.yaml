@@ -57,6 +57,24 @@ services:
     volumes:
       - './unifi/data/:/unifi/data'
       - './unifi/cert/:/unifi/cert'
+      
+  ost:
+    container_name: ost
+    image: openspeedtest/latest:latest
+    hostname: ost
+    domainname: bonner.uk
+    networks:
+      network: 
+        ipv4_address: "10.10.10.111"
+    dns:
+      - 10.10.10.10
+      - 1.1.1.1
+    ports:
+      - 80/tcp
+    environment:
+      ServerIP: 10.10.10.111
+      TZ: 'Europe/London'
+    restart: unless-stopped
 
 networks:
   network:
