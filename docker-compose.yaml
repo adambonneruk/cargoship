@@ -58,10 +58,10 @@ services:
       - './unifi/data/:/unifi/data'
       - './unifi/cert/:/unifi/cert'
       
-  ost:
-    container_name: ost
+  speedtest:
+    container_name: speedtest
     image: openspeedtest/latest:latest
-    hostname: ost
+    hostname: speedtest
     domainname: bonner.uk
     networks:
       network: 
@@ -70,7 +70,7 @@ services:
       - 10.10.10.10
       - 1.1.1.1
     ports:
-      - 80/tcp
+            - 80:80
     environment:
       ServerIP: 10.10.10.111
       TZ: 'Europe/London'
