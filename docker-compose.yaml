@@ -53,12 +53,10 @@ services:
     environment:
       ServerIP: 10.10.10.2
       TZ: 'Europe/London'
-      CERTNAME: 'fullchain.pem'
-      CERT_IS_CHAIN: 'true'
     restart: unless-stopped
     volumes:
       - './unifi/data/:/unifi/data'
-      - '/etc/letsencrypt/live/unifi.bonner.uk/:/unifi/cert'
+      - './unifi/cert/:/unifi/cert'
 
   speedtest:
     container_name: speedtest
