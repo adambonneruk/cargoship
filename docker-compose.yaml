@@ -53,18 +53,20 @@ services:
     environment:
       ServerIP: 10.10.10.2
       TZ: 'Europe/London'
+      CERTNAME: 'fullchain.pem'
+      CERT_IS_CHAIN: 'true'
     restart: unless-stopped
     volumes:
       - './unifi/data/:/unifi/data'
-      - './unifi/cert/:/unifi/cert'
-      
+      - '/etc/letsencrypt/live/unifi.bonner.uk/:/unifi/cert'
+
   speedtest:
     container_name: speedtest
     image: openspeedtest/latest:latest
     hostname: speedtest
     domainname: bonner.uk
     networks:
-      network: 
+      network:
         ipv4_address: "10.10.10.111"
     dns:
       - 10.10.10.10
