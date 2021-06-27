@@ -1,6 +1,6 @@
 # Configuring the Raspberry Pi with Docker (+More)
 
-## Manual Certificate Refresh
+## Manual Certificate Refresh (using ```certbot```)
 Steps to follow to updated the unifi certificate, put it in correct docker compose folder, (re)pull the newest docker images and restart the services
 
 ```bash
@@ -71,3 +71,65 @@ rm -rf ~/.config/htop/htoprc
 ```
 
 ![](.screenshots/htop-temp.png)
+
+## Backup your Unifi Controller to Dropbox (using ```rclone```)
+Using the Linux terminal, follow the process defined below
+```bash
+# install rclone
+curl https://rclone.org/install.sh | sudo bash
+
+# configure rclone
+rclone configure
+N
+dropbox
+9
+enter key (client id = blank)
+enter key (client secret = blank)
+N
+N
+```
+
+Now switch to Windows to complete the authorisation
+```ps
+# install rclone
+choco install rclone -y
+
+# authorise dropbox
+rclone authorize dropbox
+
+# web browser will open, follow the steps
+
+# copy the authorisation code to he clipboard
+```
+
+Switching back to Linux, complete the setup and start the copy/clone
+```bash
+# paste the token
+
+# finish and save the config
+Y
+
+# go configure a dropbox folder location online
+
+# setup folder permissions on Linux for backup folder access by rclone
+sudo usermod -a -G unifi pi
+
+# setup a copy or clone from directory structure to dropbox directory
+rclone copy /home/pi/docker/unifi/data/backup/ dropbox:Rclone/dropbox-raspi-unifi
+```
+
+Create a scheduled job to keep running the copy/clone
+```bash
+crontab -e
+```
+
+Append the following line to the crontab configuration (this launches with vim)
+```cron
+0 5 * * * rclone copy /home/pi/docker/unifi/data/backup/ dropbox:Rclone/dropbox-raspi-unifi
+```
+
+## Configure ```certbot``` for first-time use
+Using the Linux terminal follow the steps using a DNS-based challenge mechanism
+```bash
+sudo certbot certonly --manual --preferred-challenges dns
+```
