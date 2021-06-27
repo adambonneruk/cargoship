@@ -2,6 +2,13 @@
 
 > This project is an operational git repository used to store my active docker-compose configuration running on a Raspberry Pi 4 (utilising a [PoE hat](https://www.raspberrypi.org/products/poe-hat/)) whilst also serving as a future reference and guide for anyone wanting to do something similar.
 
+## Introduction & Purpose
+Using docker-compose running on a Raspberry Pi 4 to host my Unifi controller, Pi-hole DNS-based ad-blocking and OpenSpeedTest. The premise of this project is to give each of the above services an independent IP address leveraging th utility of Docker's ```macvlan``` virtual networking stack. ```macvlan``` uses a network driver to assign a MAC address to each container’s virtual network interface, making it appear to be a physical network interface directly connected to the physical network. I can then see the devices appear directly in Unifi controller software, give them their own DNS entries and theres no port conflicts! I'm sure theres a neater way using some sort of proxy, but I like this configuration for simple firewall rules, and it's kinda cool using 10.10.10.10 as the DNS server's IP address.
+
+![](.screenshots/docker-compose_ps.png)
+
+The end result is a simple docker-compose configuration (_above_) running three containers each with a distinct MAC/IP address. This project contains that [docker-compose.yaml](docker-compose.yaml) aswel as supporting code/scripts to enable automatic backups, https and container management.
+
 Project Components:
 - [Docker](https://en.wikipedia.org/wiki/Docker_(software)) / [Docker Compose](https://docs.docker.com/compose/)
 - [Unifi Controller](https://www.ui.com/download-software/) from [Ubiquiti](https://www.ui.com/)
