@@ -54,12 +54,16 @@ sudo apt-get install -y python3 python3-pip
 sudo pip3 -v install docker-compose
 ```
 
-## Change Pihole password
-The Web interface password needs to be reset via the command line on your Pi-hole. This can be done locally or over SSH. You will use the pihole command to do this:
+## Change Pi-hole password
+The Web interface password needs to be reset via the command line on your Pi-hole, since pi-hole is running inside a container we need to execute the command through docker exec.
 ```bash
-pihole -a -p
+# prune your unused docker images
+docker system prune --all
+# get a list of running docker images, taking a note of the container id for pihole
+docker ps -a
+# run the "pihole -a -p" command against the container id
+sudo docker exec -it abcdef123456 pihole -a -p CorrectHorseBatteryStaple
 ```
-You will be prompted for the new password. If you enter an empty password, the password requirement will be removed from the web interface.
 
 ## Configure ```certbot``` for first-time use
 Using the Linux terminal follow the steps using a DNS-based challenge mechanism
