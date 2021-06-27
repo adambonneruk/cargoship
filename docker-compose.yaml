@@ -25,7 +25,6 @@ services:
       DNS1: '1.1.1.1'
       DNS2: '1.0.0.1'
       WEB_PORT: 80
-      WEBPASSWORD: 'password01'
     restart: unless-stopped
     volumes:
       - './pihole/etc-pihole/:/etc/pihole/'
@@ -57,14 +56,14 @@ services:
     volumes:
       - './unifi/data/:/unifi/data'
       - './unifi/cert/:/unifi/cert'
-      
+
   speedtest:
     container_name: speedtest
     image: openspeedtest/latest:latest
     hostname: speedtest
     domainname: bonner.uk
     networks:
-      network: 
+      network:
         ipv4_address: "10.10.10.111"
     dns:
       - 10.10.10.10
