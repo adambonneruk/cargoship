@@ -1,4 +1,25 @@
-# Configuring the Raspberry Pi with Docker (+More)
+# Unifi + Pi-hole + OpenSpeedTest on RasPi using Docker
+
+> This project is an operational git repository used to store my active docker-compose configuration running on a Raspberry Pi 4 (utilising a [PoE hat](https://www.raspberrypi.org/products/poe-hat/)) whilst also serving as a future reference and guide for anyone wanting to do something similar.
+
+Project Components:
+- [Docker](https://en.wikipedia.org/wiki/Docker_(software)) / [Docker Compose](https://docs.docker.com/compose/)
+- [Unifi Controller](https://www.ui.com/download-software/) from [Ubiquiti](https://www.ui.com/)
+- [Pi-hole](https://pi-hole.net/) Project
+- [OpenSpeedTest™](http://openspeedtest.com/)
+
+Dependencies:
+- Official [Pi-hole](https://hub.docker.com/u/pihole/) project on Docker Hub
+- Official [OpenSpeedTest](https://hub.docker.com/u/openspeedtest#!) project on Docker Hub
+- Jcobalberty's great Unifi controller [docker/github project](https://github.com/jacobalberty/unifi-docker)
+- Wbenny's cool temperature [fork](https://github.com/wbenny/htop#quick-installation-rpi) for htop
+
+Useful Links / Further Reading:
+- [Dropbox + Rclone auto-backup of unifi-controller](https://lazyadmin.nl/home-network/backup-unifi-controller-to-cloud/?unapproved=2920&moderation-hash=877022b0e9d44011245705e6e37a472f#comment-2920) from _lazyadmin.nl_
+- [Cloudflare DNS (1.1.1.1)](https://blog.cloudflare.com/announcing-1111/)
+- [Configure L2TP VPN in Unifi](https://vninja.net/2019/04/10/ubiquiti-usg-remote-user-vpn-using-l2tp/)
+- [Generate a Secure PSK](https://cloud.google.com/network-connectivity/docs/vpn/how-to/generating-pre-shared-key) (Google)
+
 
 ## Manual Certificate Refresh (using ```certbot```)
 Steps to follow to updated the unifi certificate, put it in correct docker compose folder, (re)pull the newest docker images and restart the services
