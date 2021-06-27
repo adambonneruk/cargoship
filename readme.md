@@ -1,4 +1,31 @@
-# Manual Certificate Refresh
+# Configuring the Raspberry Pi with Docker (+More)
+
+## Install _Docker_ and _Docker Compose_
+```bash
+# docker
+curl -sSL https://get.docker.com | sh
+sudo usermod -aG docker pi
+sudo reboot
+
+# docker-compose
+sudo apt-get install -y libffi-dev libssl-dev
+sudo apt-get install -y python3 python3-pip
+sudo pip3 -v install docker-compose
+```
+
+## Configure Terminal/Bash Aliases
+Open the bash_aliases file in Vim
+```bash
+vim ~/.bash_aliases
+```
+
+Append the following two lines and quit Vim saving the file
+```bash
+alias temp='/opt/vc/bin/vcgencmd measure_temp'
+alias cls=clear
+```
+
+## Manual Certificate Refresh
 Steps to follow to updated the unifi certificate, put it in correct docker compose folder, (re)pull the newest docker images and restart the services
 
 ```bash
@@ -22,3 +49,16 @@ docker-compose pull
 docker-compose down
 docker-compose up -d --build
 ```
+
+## Custom ```htop``` build with RasPi Temperature
+Using [this github](https://github.com/wbenny/htop) project/fork of htop
+
+```bash
+cd ~
+wget https://github.com/wbenny/htop/files/573914/htop_2.0.2-2_armhf.deb.zip
+unzip htop_2.0.2-2_armhf.deb.zip
+sudo dpkg -i htop_2.0.2-2_armhf.deb
+rm -rf ~/.config/htop/htoprc
+```
+
+![](.screenshots/htop-temp.png)
