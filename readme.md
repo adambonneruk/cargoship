@@ -37,9 +37,10 @@ Append the following two lines and quit Vim saving the file
 alias temp="/opt/vc/bin/vcgencmd measure_temp | grep -oP '[\d.]+'"
 alias cls=clear
 ```
-## Fix User Accessing Temp Alias if not in Video Group
+## Fix New User Access/Permissions for different Groups
 ```sh
 sudo usermod -aG video adam
+sudo usermod -aG docker adam
 ```
 
 ## Custom ```htop``` build with RasPi Temperature
