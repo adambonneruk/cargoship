@@ -102,6 +102,8 @@ docker-compose pull
 docker-compose down
 docker-compose up -d --build
 ```
+## Firebog Block Lists
+Now you've got pihole setup, here are a neat collection of block lists i'm using: https://firebog.net/
 
 ## Backup your Unifi Controller to Dropbox (using ```rclone```)
 Using the Linux terminal, follow the process defined below
