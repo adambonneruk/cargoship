@@ -27,6 +27,27 @@ Useful Links / Further Reading:
 - [Configure L2TP VPN in Unifi](https://vninja.net/2019/04/10/ubiquiti-usg-remote-user-vpn-using-l2tp/)
 - [Generate a Secure PSK](https://cloud.google.com/network-connectivity/docs/vpn/how-to/generating-pre-shared-key) (Google)
 
+# Setup / Instructions
+1. Install [Raspbian OS Lite x64](https://www.raspberrypi.com/software/operating-systems/) on your Raspberry Pi 4
+   - I'd recommend using the official tool allowing you to enable SSH and set a custom password as you write the image to the Micro SD card.
+   - Raspberry Pi foundation recently made changes to the default ```pi```/```raspberry``` username/password combo.
+2. Update your Pi!
+   - ```sudo apt-get update```
+   - ```sudo apt-get upgrade```
+3. Configure static DNS profile (e.g my network is 10.10.10.0/24)
+   - ```sudo nano /etc/dhcpcd.conf```
+4. Install prerequisite software
+   - Git (```sudo apt-get install git```)
+   - Docker-Compose (```sudo apt-get install docker-compose```)
+5. Fix New User Access/Permissions for different Groups (```sudo usermod -aG docker pi```)
+6. Clone the git project into your user directoy
+   - ```cd ~```
+   - ```git clone https://github.com/adambonneruk/config-network.git docker```
+7. Run docker-compose
+   - ```cd ~/docker/```
+   - ```docker-compose up -d```
+
+# Miscellaneous
 ## Configure Terminal/Bash Aliases
 Open the bash_aliases file in Vim
 ```bash
