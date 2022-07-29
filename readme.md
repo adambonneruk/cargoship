@@ -55,7 +55,7 @@ vim ~/.bash_aliases
 ```
 Append the following two lines and quit Vim saving the file
 ```bash
-alias temp="/opt/vc/bin/vcgencmd measure_temp | grep -oP '[\d.]+'"
+alias temp="/usr/bin/vcgencmd measure_temp | grep -oP '[\d.]+'"
 alias cls=clear
 ```
 ## Fix New User Access/Permissions for different Groups
