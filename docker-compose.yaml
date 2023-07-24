@@ -57,6 +57,26 @@ services:
       - './unifi/data/:/unifi/data'
       - './unifi/cert/:/unifi/cert'
 
+  gitea:
+    container_name: gitea
+    image: kunde21/gitea-arm:latest
+    hostname: code
+    domainname: bonner.uk
+    networks:
+      network:
+        ipv4_address: "10.10.10.61"
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+      - "222:22"
+    volumes:
+      - ./gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
   speedtest:
     container_name: speedtest
     image: openspeedtest/latest:latest
