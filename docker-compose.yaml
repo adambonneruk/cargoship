@@ -3,7 +3,7 @@ services:
 
   nginx:
     container_name: nginx
-    image: 'jc21/nginx-proxy-manager:latest'
+    image: jc21/nginx-proxy-manager:latest
     ports:
       - '80:80'
       - '81:81'
