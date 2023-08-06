@@ -1,12 +1,27 @@
 # cargoship
 _hosting unifi, pihole, gitea etc. using docker-compose and nginx_
 
+  - [System Setup](#system-setup)
+    - [Linux](#linux)
+    - [Update, upgrade and install software](#update-upgrade-and-install-software)
+    - [Hostfile and network configuration](#hostfile-and-network-configuration)
+    - [Profile configuration](#profile-configuration)
+    - [Hardware monitoring and configuration](#hardware-monitoring-and-configuration)
+  - [Docker configuration](#docker-configuration)
+    - [gitea folders](#gitea-folders)
+    - [pihole admin password](#pihole-admin-password)
+    - [docker-compose reference](#docker-compose-reference)
+  - [Rclone and cron configuration](#rclone-and-cron-configuration)
+    - [Rclone](#rclone)
+    - [cron](#cron)
+
+
 Running on a x86-64 micro server, this configuration uses docker-compose to serve several useful network appliances via https. Each appliance is served as a unique fqdn through the nginx reverse proxy which also manages the tls certificates.
 
 <img align="right" src=".images/cargoship-icon.png" />
 
 #### Components
-Each service runs inside the ```cargonet``` docker network and is exposed via the nginx reverse proxy. Using pihole to serve memorable domain names "example.bonner.uk" results in a clean setup and few ports shared wtih the host (current a Dell OptiPlex 7040 micro PC).
+Each service runs inside the ```cargonet``` docker network and is exposed via the nginx reverse proxy. Using pihole to serve memorable domain names "example.bonner.uk" results in a clean setup and very few ports shared with the host (currently a Dell OptiPlex 7040 micro PC).
 
 ##### Infrastructure
 - Unifi Controller ([docker](https://hub.docker.com/r/jacobalberty/unifi/)): Control all of my Ubiquiti/Unifi devices
@@ -35,7 +50,7 @@ Useful Links / Further Reading:
 
 [Debian](https://www.debian.org/) installer image: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.1.0-amd64-netinst.iso
 
-This project used Debian linux, due to my familiarty with Raspberry Pi OD (formerly Rasbian) and the community/, tability and support as popular distorbution offers. Debian 12 is supported until June 2026 ([ref.](https://en.wikipedia.org/wiki/Debian_version_history))
+This project used Debian linux, due to my familiarty with Raspberry Pi OS (formerly Rasbian) and the community, stability and support a popular distorbution offers. Debian 12 is supported until June 2026 ([ref.](https://en.wikipedia.org/wiki/Debian_version_history))
 
 
 ### Update, upgrade and install software
@@ -50,7 +65,7 @@ sudo apt install docker-compose
 sudo apt install rclone
 sudo apt install smartmontools
 ```
-### Hostfile and Network configuration
+### Hostfile and network configuration
 
 edits to ```/etc/hostname```
    ```
@@ -175,7 +190,7 @@ view docker processes
    dc ps
    ```
 
-## Rclone and Cron configuration
+## Rclone and cron configuration
 ### Rclone
 setup rclone
    ```sh
@@ -221,10 +236,14 @@ sync command for nginx (with progress)
    rclone sync /home/adam/cargo/nginx/ dropbox:Rclone/optiplex-nginx -P
    ```
 
-#### configure backup jobs for gitea and unifi
-   with ```crontab -e```, configure...
+configure backup jobs for all three, with ```crontab -e```, configure...
    ```crontab
    0 5 * * * rclone copy /home/adam/cargo/unifi/data/backup/ dropbox:Rclone/optiplex-unifi
    0 4 * * 0 rclone sync /home/adam/cargo/gitea/data/git/ dropbox:Rclone/optiplex-gitea
    0 3 7 * * rclone sync /home/adam/cargo/nginx/ dropbox:Rclone/optiplex-nginx
+   ```
+
+export crontab to a text file
+   ```shell
+   crontab -l > ~/my-crontab.txt
    ```
