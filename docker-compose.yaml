@@ -1,0 +1,62 @@
+version: '3.8'
+services:
+
+  nginx:
+    container_name: nginx
+    image: 'jc21/nginx-proxy-manager:latest'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./nginx/data:/data
+      - ./nginx/letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
+
+  speedtest:
+    container_name: speedtest
+    image: openspeedtest/latest:latest
+    hostname: speed
+    domainname: bonner.uk
+    restart: unless-stopped
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    hostname: pihole
+    domainname: bonner.uk
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    ports:
+      - '53:53/udp'
+      - '53:53/tcp'
+    environment:
+      TZ: 'Europe/London'
+      #WEBPASSWORD: 'changeme'
+      PIHOLE_DNS_: '1.1.1.1;1.0.0.1'
+      PIHOLE_UID: 1000
+      PIHOLE_GID: 1000
+    volumes:
+      - './pihole/etc-pihole/:/etc/pihole/'
+      - './pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    restart: unless-stopped
+
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest
+    hostname: code
+    domainname: bonner.uk
+    volumes:
+      - './gitea/data:/var/lib/gitea:rw'
+      - './gitea/config:/etc/gitea:rw'
+      - '/etc/timezone:/etc/timezone:ro'
+      - '/etc/localtime:/etc/localtime:ro'
+    restart: unless-stopped
+
+
+networks:
+  default:
+    external: true
+    name: cargonet
+
