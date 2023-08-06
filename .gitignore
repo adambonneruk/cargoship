@@ -1,6 +1,14 @@
 # container volumes
-pihole/
 gitea/
-unifi/
 nginx/
+pihole/
+unifi/
+
+# noise and standard folders
+.vscode/
+build/
+dist/
+src/
+tools/
+venv/
 
