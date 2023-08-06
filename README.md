@@ -18,7 +18,7 @@ _hosting unifi, pihole, gitea etc. using docker-compose and nginx_
 
 Running on a x86-64 micro server, this configuration uses docker-compose to serve several useful network appliances via https. Each appliance is served as a unique fqdn through the nginx reverse proxy which also manages the tls certificates.
 
-<img align="right" src=".images/cargoship-icon.png" />
+<img align="right" src="./.images/cargoship-icon.png" />
 
 #### Components
 Each service runs inside the ```cargonet``` docker network and is exposed via the nginx reverse proxy. Using pihole to serve memorable domain names "example.bonner.uk" results in a clean setup and very few ports shared with the host (currently a Dell OptiPlex 7040 micro PC).
@@ -42,7 +42,7 @@ Useful Links / Further Reading:
 
 ## System Setup
 
-![](.images/7040.png)
+![](./.images/7040.png)
 
 ### Linux
 
