@@ -44,12 +44,12 @@ services:
 
   gitea:
     container_name: gitea
-    image: gitea/gitea:latest
+    image: gitea/gitea:latest-rootless
     hostname: code
     domainname: bonner.uk
     volumes:
-      - './gitea/data:/var/lib/gitea:rw'
-      - './gitea/config:/etc/gitea:rw'
+      - './gitea/data:/var/lib/gitea'
+      - './gitea/config:/etc/gitea'
       - '/etc/timezone:/etc/timezone:ro'
       - '/etc/localtime:/etc/localtime:ro'
     restart: unless-stopped
