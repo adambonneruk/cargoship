@@ -26,6 +26,18 @@ Useful Links / Further Reading:
 - [Firebog Block Lists](https://firebog.net/): collection of adblock lists
 
 ## System Setup
+
+![](.images/7040.png)
+
+### Linux
+
+<img width="96px" align="right" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Debian-OpenLogo.svg/182px-Debian-OpenLogo.svg.png" />
+
+[Debian](https://www.debian.org/) installer image: https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-12.1.0-amd64-netinst.iso
+
+This project used Debian linux, due to my familiarty with Raspberry Pi OD (formerly Rasbian) and the community/, tability and support as popular distorbution offers. Debian 12 is supported until June 2026 ([ref.](https://en.wikipedia.org/wiki/Debian_version_history))
+
+
 ### Update, upgrade and install software
 ```sh
 sudo apt update
@@ -69,6 +81,9 @@ restart network after configuration edits
    ```
 
 ### Profile configuration
+
+<img width="900px" src=".images/ctop.png" />
+
 ```.bashrc``` profile additions
 ```bash
 # alias
@@ -106,17 +121,23 @@ Check a NTP time server
    sudo ntpdate -q time.google.com
    ```
 
+Check a NTP time server (from Windows)
+   ```
+   w32tm /stripchart /computer:time.bonner.uk /samples:1 /dataonly
+   ```
+
 Check disk usage
    ```sh
    df -h
    ```
+
 ## Docker configuration
 give user (adam) permission to run docker
    ```sh
    sudo usermod -aG docker adam
    ```
 
-create the netwrok used by _cargoship_, we'll call this cargonet
+create the network used by _cargoship_, we'll call this ```cargonet```
    ```sh
    docker network create cargonet
    ```
@@ -135,7 +156,7 @@ assign permissions
 ### pihole admin password
 execute command inside the docker container
    ```sh
-   pihole -a -p CorrectHorseBatteryStaple
+   pihole -a -p changeme
    ```
 
 ### docker-compose reference
@@ -144,9 +165,9 @@ start up service xxxxx
    dc up -d xxxxx
    ```
 
-spin down service xxxxx
+stop service xxxxx
    ```sh
-   dc down xxxxx
+   dc stop xxxxx
    ```
 
 view docker processes
@@ -184,15 +205,20 @@ switch back to linux and complete install
    ```
 
 ### cron
-copy command for unifi
+copy command for unifi (with progress)
 
    ```shell
-   rclone copy /home/adam/cargo/unifi/data/backup/ dropbox:Rclone/optiplex-unifi
+   rclone copy /home/adam/cargo/unifi/data/backup/ dropbox:Rclone/optiplex-unifi -P
    ```
 
-sync command for gitea
+sync command for gitea (with progress)
    ```shell
-   rclone sync /home/adam/cargo/gitea/data/git/ dropbox:Rclone/optiplex-gitea
+   rclone sync /home/adam/cargo/gitea/data/git/ dropbox:Rclone/optiplex-gitea -P
+   ```
+
+sync command for nginx (with progress)
+   ```shell
+   rclone sync /home/adam/cargo/nginx/ dropbox:Rclone/optiplex-nginx -P
    ```
 
 #### configure backup jobs for gitea and unifi
@@ -200,4 +226,5 @@ sync command for gitea
    ```crontab
    0 5 * * * rclone copy /home/adam/cargo/unifi/data/backup/ dropbox:Rclone/optiplex-unifi
    0 4 * * 0 rclone sync /home/adam/cargo/gitea/data/git/ dropbox:Rclone/optiplex-gitea
+   0 3 7 * * rclone sync /home/adam/cargo/nginx/ dropbox:Rclone/optiplex-nginx
    ```
