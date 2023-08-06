@@ -54,6 +54,19 @@ services:
       - '/etc/localtime:/etc/localtime:ro'
     restart: unless-stopped
 
+  ntp:
+    container_name: ntp
+    image: cturra/ntp:latest
+    hostname: time
+    domainname: bonner.uk
+    ports:
+      - '123:123/udp'
+    environment:
+      - NTP_SERVERS=time.cloudflare.com
+      - LOG_LEVEL=0
+      - TZ=Europe/London
+      - NOCLIENTLOG=true
+    restart: unless-stopped
 
 networks:
   default:
