@@ -68,6 +68,26 @@ services:
       - NOCLIENTLOG=true
     restart: unless-stopped
 
+  unifi:
+    container_name: unifi
+    image: jacobalberty/unifi:latest
+    hostname: unifi
+    domainname: bonner.uk
+    ports:
+      - '8080:8080/tcp'
+      - '8443:8443/tcp'
+      - '3478:3478/udp'
+      - '10001:10001/udp'
+      - '6789:6789/tcp'
+      - '8880:8880/tcp'
+      - '8843:8843/tcp'
+    environment:
+      TZ: 'Europe/London'
+    volumes:
+      - './unifi/data/:/unifi/data'
+      - './unifi/cert/:/unifi/cert'
+    restart: unless-stopped
+
 networks:
   default:
     external: true
