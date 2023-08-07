@@ -33,7 +33,6 @@ services:
       - '53:53/tcp'
     environment:
       TZ: 'Europe/London'
-      #WEBPASSWORD: 'changeme'
       PIHOLE_DNS_: '1.1.1.1;1.0.0.1'
       PIHOLE_UID: 1000
       PIHOLE_GID: 1000
@@ -74,13 +73,15 @@ services:
     hostname: unifi
     domainname: bonner.uk
     ports:
-      - '8080:8080/tcp'
-      - '8443:8443/tcp'
-      - '3478:3478/udp'
-      - '10001:10001/udp'
-      - '6789:6789/tcp'
-      - '8880:8880/tcp'
-      - '8843:8843/tcp'
+      - '8080:8080/tcp'   # device communication
+      - '8443:8443/tcp'   # web admin
+      - '3478:3478/udp'   # STUN
+      - '10001:10001/udp' # AP discovery
+      - '6789:6789/tcp'   # optional / mobile throughput test
+      - '8880:8880/tcp'   # optional / guest http redirect
+      - '8843:8843/tcp'   # optional / guest https redirect
+      #- '5514:5514/udp'   # optional / remove syslog
+      #- '1900:1900/tcp'   # optional / l2 network discovery
     environment:
       TZ: 'Europe/London'
     volumes:
