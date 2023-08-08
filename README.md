@@ -76,7 +76,7 @@ edits to ```/etc/hostname```
 edits to ```/etc/hosts```
    ```
    127.0.0.1       localhost
-   10.10.10.100    cargoship.bonner.uk cargoship
+   10.10.10.10    cargoship.bonner.uk cargoship
 
    # allow this server to see git hosting
    10.10.10.10     code.bonner.uk
@@ -85,7 +85,7 @@ edits to ```/etc/hosts```
 edits to ```/etc/network/interfaces```
    ```
    iface XXXXXXXXX inet static
-      address 10.10.10.100
+      address 10.10.10.10
       netmask 255.255.255.0
       gateway 10.10.10.1
       dns-nameservers 1.1.1.1
