@@ -9,6 +9,7 @@ _hosting unifi, pihole, gitea etc. using docker-compose and nginx_
     - [Hardware monitoring and configuration](#hardware-monitoring-and-configuration)
   - [Docker configuration](#docker-configuration)
     - [gitea folders](#gitea-folders)
+    - [unifi folders](#unifi-folders)
     - [pihole admin password](#pihole-admin-password)
     - [docker-compose reference](#docker-compose-reference)
   - [Rclone and cron configuration](#rclone-and-cron-configuration)
@@ -168,6 +169,18 @@ assign permissions
    sudo chown 1000:1000 config/ data/
    ```
 
+### unifi folders
+workaround to get crontab backing up unifi
+   ```sh
+   sudo chown 1000:1000 unifi/
+   cd unifi/
+   sudo chown 1000:1000 data/
+   cd data/
+   sudo chown 1000:1000 backup/
+   cd backup/
+   sudo chown 1000:1000 autobackup/
+   ```
+
 ### pihole admin password
 execute command inside the docker container
    ```sh
@@ -238,7 +251,7 @@ sync command for nginx (with progress)
 
 configure backup jobs for all three, with ```crontab -e```, configure...
    ```crontab
-   0 5 * * * rclone copy /home/adam/cargo/unifi/data/backup/ dropbox:Rclone/optiplex-unifi
+   0 6 * * * rclone copy /home/adam/cargo/unifi/data/backup/ dropbox:Rclone/optiplex-unifi
    0 4 * * 0 rclone sync /home/adam/cargo/gitea/data/git/ dropbox:Rclone/optiplex-gitea
    0 3 7 * * rclone sync /home/adam/cargo/nginx/ dropbox:Rclone/optiplex-nginx
    ```
