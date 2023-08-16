@@ -15,6 +15,9 @@ _hosting unifi, pihole, gitea etc. using docker-compose and nginx_
   - [Rclone and cron configuration](#rclone-and-cron-configuration)
     - [Rclone](#rclone)
     - [cron](#cron)
+  - [Copyright Notice(s)](#copyright-notices)
+  - [Contributing to this Project](#contributing-to-this-project)
+  - [Security Policy for this Project](#security-policy-for-this-project)
 
 
 Running on a x86-64 micro server, this configuration uses docker-compose to serve several useful network appliances via https. Each appliance is served as a unique fqdn through the nginx reverse proxy which also manages the tls certificates.
@@ -260,3 +263,13 @@ export crontab to a text file
    ```shell
    crontab -l > ~/my-crontab.txt
    ```
+
+## Copyright Notice(s)
+- Debian name and Logo copyright of the Debian Project
+- Dell Logo and Hardwre copyright of Dell Inc.
+
+## Contributing to this Project
+This project welcomes contributions of all types. We ask that before you start work on a feature that you would like to contribute, please read the [Contributor's Guide](.github/CONTRIBUTING.md).
+
+## Security Policy for this Project
+This project seeks to build secure, versatile and robust portable software. If you find an issue, please report it following the [Security Policy](.github/SECURITY.md)
