@@ -89,6 +89,13 @@ services:
       - './unifi/cert/:/unifi/cert'
     restart: unless-stopped
 
+  nope:
+    container_name: nope
+    image: adambonneruk/nope:latest
+    hostname: nope
+    domainname: bonner.uk
+    restart: unless-stopped
+
 networks:
   default:
     external: true
